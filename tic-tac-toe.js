@@ -1,48 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     const squares = document.querySelectorAll("#board div");
-    
-    squares.forEach((square) => {
-      square.classList.add("square");
-    });
-  });
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const squares = document.querySelectorAll("#board div");
     let currentPlayer = "X";
-    
-    squares.forEach((square) => {
-      square.addEventListener("click", () => {
-        if (!square.textContent) {
-          square.textContent = currentPlayer;
-          square.classList.add(currentPlayer);
-          currentPlayer = currentPlayer === "X" ? "O" : "X";
-        }
-      });
-    });
-  });
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const squares = document.querySelectorAll("#board div");
-    
-    squares.forEach((square) => {
-      square.addEventListener("mouseenter", () => {
-        square.classList.add("hover");
-      });
-      square.addEventListener("mouseleave", () => {
-        square.classList.remove("hover");
-      });
-    });
-  
     let gameOver = false;
     let winner = null;
   
     squares.forEach((square) => {
-      square.addEventListener("click", () => {
-        if (!gameOver && !square.classList.contains("X") && !square.classList.contains("O")) {
-          square.classList.remove("hover");
-          square.classList.add(currentPlayer);
-          square.textContent = currentPlayer;
+      square.classList.add("square");
   
+      square.addEventListener("click", () => {
+        if (!gameOver && !square.textContent) {
+          square.textContent = currentPlayer;
+          square.classList.add(currentPlayer);
           if (checkWinner(currentPlayer)) {
             gameOver = true;
             winner = currentPlayer;
@@ -55,6 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
             currentPlayer = currentPlayer === "X" ? "O" : "X";
           }
         }
+      });
+  
+      square.addEventListener("mouseenter", () => {
+        if (!square.textContent && !gameOver) {
+          square.classList.add("hover");
+        }
+      });
+  
+      square.addEventListener("mouseleave", () => {
+        square.classList.remove("hover");
       });
     });
   
@@ -73,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       currentPlayer = "X";
       gameOver = false;
+      winner = null;
     }
   
     function checkWinner(player) {
