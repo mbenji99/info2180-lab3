@@ -58,6 +58,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   
+    document.querySelector(".btn").addEventListener("click", () => {
+      resetGame();
+    });
+  
+    function resetGame() {
+      squares.forEach((square) => {
+        square.textContent = "";
+        square.classList.remove("X", "O");
+      });
+  
+      document.getElementById("status").classList.remove("you-won");
+      document.getElementById("status").textContent = "Move your mouse over a square and click to play an X or an O.";
+  
+      currentPlayer = "X";
+      gameOver = false;
+    }
+  
     function checkWinner(player) {
       const lines = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
